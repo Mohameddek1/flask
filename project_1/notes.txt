@@ -1,0 +1,53 @@
+>>> from app import app
+>>> from flask import current_app
+>>> current_app.name              
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "C:\Users\Admin\Desktop\flask_project\project_1\env\Lib\site-packages\werkzeug\local.py", line 318, in __get__
+    obj = instance._get_current_object()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\Desktop\flask_project\project_1\env\Lib\site-packages\werkzeug\local.py", line 519, in _get_current_object
+    raise RuntimeError(unbound_message) from None
+RuntimeError: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+>>> app_ctx = app.app_context()
+>>> app_ctx.push()             
+>>> current_app.name
+'app'
+
+
+ python
+Python 3.12.7 (tags/v3.12.7:0b05ead, Oct  1 2024, 03:06:41) [MSC v.1941 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from app import app
+>>> app.url_map
+Map([<Rule '/static/<filename>' (GET, HEAD, OPTIONS) -> static>,
+ <Rule '/' (GET, HEAD, OPTIONS) -> index>,
+ <Rule '/<name>' (GET, HEAD, OPTIONS) -> print_name>])
+>>>
+
+
+------------------
+flask.Request
+------------------
+## - Accessed via from flask import request.
+request.method: HTTP method (e.g., GET, POST).
+request.url: The full URL of the request.
+request.args: Query parameters.
+request.form: Form data for POST requests.
+request.json: JSON payloads.
+
+
+-----------------
+flask.Response
+-----------------
+## - Accessed via from flask import Response
+response.status_code: HTTP status code.
+response.headers: Response headers.
+response.data: The response body.
+
+REST -> representational state transfer
+JSON -> Javascript object notation
