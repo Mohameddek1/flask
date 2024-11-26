@@ -1,0 +1,140 @@
+Common Data Types
+1.Integer:
+
+Stores whole numbers.
+Example: db.Integer
+
+age = db.Column(db.Integer)
+
+2.String:
+
+Stores text with a maximum length.
+Example: db.String(length)
+
+username = db.Column(db.String(80))  # Max length of 80 characters
+
+3.Text:
+
+Stores long text (unlimited length).
+Example: db.Text
+
+description = db.Column(db.Text)
+
+4.Float:
+
+Stores floating-point numbers (decimals).
+Example: db.Float
+
+price = db.Column(db.Float)
+
+5.Boolean:
+
+Stores True or False.
+Example: db.Boolean
+
+is_active = db.Column(db.Boolean, default=True)
+
+6.Date:
+
+Stores dates (e.g., 2024-11-26).
+Example: db.Date
+
+created_on = db.Column(db.Date)
+
+7.DateTime:
+
+Stores dates and times (e.g., 2024-11-26 14:23:45).
+Example: db.DateTime
+
+last_login = db.Column(db.DateTime)
+
+8.Time:
+
+Stores time only (e.g., 14:23:45).
+Example: db.Time
+
+alarm_time = db.Column(db.Time)
+
+9.LargeBinary:
+
+Stores binary data (e.g., files, images).
+Example: db.LargeBinary
+
+profile_picture = db.Column(db.LargeBinary)
+
+10.Enum:
+
+Stores a predefined set of values.
+Example: db.Enum
+
+from enum import Enum
+class Status(Enum):
+    ACTIVE = "Active"
+    INACTIVE = "Inactive"
+status = db.Column(db.Enum(Status))
+
+---------------------------------------------------------------------------
+Common Constraints
+
+1.primary_key=True:
+
+Makes the column the primary key.
+Example:
+
+id = db.Column(db.Integer, primary_key=True)
+
+2.nullable=True/False:
+
+Controls whether the column can have NULL values.
+Example:
+
+email = db.Column(db.String(120), nullable=False)  # Cannot be NULL
+
+3.default=value:
+
+Sets a default value if no value is provided.
+Example:
+
+active = db.Column(db.Boolean, default=True)
+
+4.unique=True:
+
+Ensures all values in the column are unique.
+Example:
+
+email = db.Column(db.String(120), unique=True)
+
+5.index=True:
+
+Creates an index on the column for faster lookups.
+Example:
+
+username = db.Column(db.String(80), index=True)
+
+6.ForeignKey:
+
+Creates a relationship with another table.
+Example:
+
+user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+7.Check:
+
+Adds custom conditions for the column.
+Example:
+
+price = db.Column(db.Float, db.CheckConstraint('price > 0'))
+
+8.server_default:
+
+Provides a default value at the database level (useful for migrations).
+Example:
+
+created_at = db.Column(db.DateTime, server_default=db.func.now())
+
+9.primary_key=True and autoincrement=True:
+
+Makes a column a primary key with auto-increment.
+Example:
+
+id = db.Column(db.Integer, primary_key=True, autoincrement=True)
