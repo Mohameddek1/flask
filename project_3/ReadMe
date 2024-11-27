@@ -1,0 +1,119 @@
+Credit Card Vault Project Documentation
+Overview
+The Credit Card Vault is a secure system designed to store and manage credit card information using encryption. It supports user authentication, customer management, and encrypted storage of sensitive credit card data.
+
+Features
+User Authentication:
+
+Register new users with roles (e.g., Admin).
+Authenticate users using secure password hashing.
+Customer Management:
+
+Add and manage customer details.
+Credit Card Management:
+
+Store credit card details securely using AES encryption.
+Retrieve decrypted credit card details on request.
+Project Structure
+graphql
+Copy code
+project/
+├── app.py               # Main application entry point  
+├── config.py            # Application configuration settings  
+├── models.py            # Database models and encryption functions  
+├── routes/              # Folder containing route blueprints  
+│   ├── auth.py          # User authentication routes  
+│   ├── customer.py      # Customer management routes  
+│   ├── transaction.py   # Transaction routes (optional)  
+│   └── credit_card.py   # Credit card management routes  
+└── db.sqlite            # SQLite database file  
+Setup and Installation
+Install Dependencies:
+Ensure you have Python installed. Run the following command to install required libraries:
+
+bash
+Copy code
+pip install flask flask_sqlalchemy flask_bcrypt flask_jwt_extended cryptography
+Configuration:
+
+Set up your Flask application configuration in a config.py file.
+Define the database URI and encryption key.
+Database Initialization:
+
+Run the application and initialize the database.
+Use the command below to start the server:
+bash
+Copy code
+python app.py
+API Endpoints
+Authentication Endpoints
+Register a User:
+
+Method: POST
+URL: /auth/register
+Payload:
+json
+Copy code
+{
+  "username": "admin",
+  "password": "12345",
+  "role": "Admin"
+}
+Login a User:
+
+Method: POST
+URL: /auth/login
+Payload:
+json
+Copy code
+{
+  "username": "admin",
+  "password": "12345"
+}
+Customer Management Endpoints
+Add a Customer:
+Method: POST
+URL: /customer/
+Payload:
+json
+Copy code
+{
+  "name": "John Doe",
+  "email": "john@example.com"
+}
+Credit Card Management Endpoints
+Add a Credit Card:
+
+Method: POST
+URL: /card/
+Payload:
+json
+Copy code
+{
+  "customer_id": 1,
+  "card_number": "4111111111111111",
+  "cvv": "123",
+  "expiry_date": "12/25"
+}
+Retrieve a Credit Card:
+
+Method: GET
+URL: /card/<customer_id>
+Example:
+bash
+Copy code
+curl http://127.0.0.1:5000/card/1
+Security Considerations
+Encryption:
+
+Credit card information is encrypted using AES (Advanced Encryption Standard) before storage.
+Ensure the encryption key is securely stored and not hard-coded in the application.
+Passwords:
+
+User passwords are hashed using Bcrypt for secure storage.
+Database Security:
+
+Use an SQL database to store sensitive information and protect it with appropriate access controls.
+Testing
+Use curl or API testing tools like Postman to test the endpoints. Examples of API calls are provided above.
+
